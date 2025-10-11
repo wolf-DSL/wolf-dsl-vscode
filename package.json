@@ -1,0 +1,73 @@
+{
+    "name": "wolf-dsl-vscode",
+    "displayName": "Wolf DSL Editor",
+    "description": "A powerful Wolf DSL language extension for VS Code with syntax highlighting and language server support",
+    "version": "1.0.0",
+    "publisher": "wolf-dsl",
+    "icon": "images/xtext.png",
+    "license": "EPL-1.0",
+    "keywords": [
+        "wolf-dsl",
+        "dsl",
+        "language",
+        "syntax-highlighting",
+        "language-server"
+    ],
+    "engines": {
+        "vscode": "^1.67.1"
+    },
+    "categories": [
+        "Programming Languages"
+    ],
+    "activationEvents": [
+        "onLanguage:wolf-dsl"
+    ],
+    "main": "out/extension",
+    "contributes": {
+        "languages": [
+            {
+                "id": "wolf-dsl",
+                "aliases": [
+                    "Wolf DSL",
+                    "wolf-dsl"
+                ],
+                "extensions": [
+                    ".flow"
+                ],
+                "configuration": "./wolf-dsl.configuration.json"
+            }
+        ],
+        "grammars": [
+            {
+                "language": "wolf-dsl",
+                "scopeName": "text.wolf-dsl",
+                "path": "./syntaxes/wolf-dsl.tmLanguage.json"
+            }
+        ],
+        "commands": [
+            {
+                "command": "wolf-dsl.a.proxy",
+                "title": "Wolf DSL Command A"
+            },
+            {
+                "command": "wolf-dsl.b",
+                "title": "Wolf DSL Command B"
+            }
+        ]
+    },
+    "devDependencies": {
+        "@types/node": "^17.0.34",
+        "@types/vscode": "^1.67.0",
+        "typescript": "^4.6.4",
+        "@vscode/test-electron": "^2.1.3"
+    },
+    "dependencies": {
+        "vscode-languageclient": "^8.1.0"
+    },
+    "scripts": {
+        "prepublish": "tsc -p ./src",
+        "compile": "tsc -p ./src",
+        "watch": "tsc -w -p ./src",
+        "update-vscode": "node ./node_modules/vscode/bin/install"
+    }
+}
