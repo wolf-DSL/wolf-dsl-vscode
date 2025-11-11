@@ -14,6 +14,10 @@ export function activate(context: ExtensionContext) {
     let absolutePathSh = context.asAbsolutePath(path.join('src', "server.sh"));
     let absolutePathJar = context.asAbsolutePath(path.join('src', "language-server.jar"));
 
+    console.log('Wolf DSL: Language server paths:');
+    console.log('  Shell script:', absolutePathSh);
+    console.log('  JAR file:', absolutePathJar);
+
     let serverOptions: ServerOptions = {
         debug : { command: absolutePathSh, args: [ absolutePathJar ] },
         run: { command: absolutePathSh, args: [ absolutePathJar ], options: { env: createDebugEnv() } }
@@ -26,9 +30,9 @@ export function activate(context: ExtensionContext) {
         }
     };
     // Create the language client and start the client.
-    lc = new LanguageClient('Wolf DSL Language Server', serverOptions, clientOptions, true);
+    lc = new LanguageClient('wolf-dsl', 'Wolf DSL Language Server', serverOptions, clientOptions);
 
-    var disposable2 =commands.registerCommand("wolf-dsl.a.proxy", async () => {
+    var disposable2 = commands.registerCommand("wolf-dsl.a.proxy", async () => {
         let activeEditor = window.activeTextEditor;
         if (!activeEditor || !activeEditor.document || activeEditor.document.languageId !== 'wolf-dsl') {
             return;
@@ -42,7 +46,10 @@ export function activate(context: ExtensionContext) {
     
     // enable tracing (.Off, .Messages, Verbose)
     lc.setTrace(Trace.Verbose);
-    lc.start();
+    lc.start().catch(err => {
+        window.showErrorMessage(`Failed to start Wolf DSL Language Server: ${err.message}`);
+        console.error('Language server startup error:', err);
+    });
 }
 export function deactivate() {
     return lc.stop();

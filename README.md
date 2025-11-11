@@ -168,22 +168,30 @@ The extension consists of:
 ### Common Issues
 
 **Extension not activating**
-- Ensure you have Java installed and accessible in your PATH
+- Ensure you have Java 11 or later installed and accessible in your PATH
 - Check the VS Code Output panel for error messages
+- See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for detailed diagnostics
 
 **Syntax highlighting not working**
 - Verify the file has a `.flow` extension
 - Try restarting VS Code
 
 **Language server not starting**
-- Check Java installation: `java -version`
+- Check Java installation: `java -version` (requires Java 11+)
 - Review the VS Code Developer Tools console for errors
+- **Important:** The language server JAR must have a proper Main-Class manifest attribute
+- See [TROUBLESHOOTING.md](TROUBLESHOOTING.md) for detailed solutions
+
+**"no main manifest attribute" error**
+- This indicates the language server JAR needs to be rebuilt with LSP launcher
+- See [TROUBLESHOOTING.md](TROUBLESHOOTING.md#critical-issue-language-server-jar-configuration) for complete solution
 
 ### Getting Help
 
+- Check the [TROUBLESHOOTING.md](TROUBLESHOOTING.md) guide for detailed solutions
 - Check the [Issues](../../issues) page for known problems
 - Create a new issue with detailed information about your problem
-- Include VS Code version, operating system, and error messages
+- Include VS Code version, operating system, Java version, and error messages
 
 ## License
 
